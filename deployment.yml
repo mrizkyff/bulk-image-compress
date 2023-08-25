@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: image-compress-app
-          image: 'tki/image-compress:latest
+          image: 'tki/image-compress:latest'
 ---
 apiVersion: v1
 kind: Service
