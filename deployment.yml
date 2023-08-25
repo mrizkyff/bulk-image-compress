@@ -15,6 +15,7 @@ spec:
       containers:
         - name: image-compress-app
           image: 'tki/image-compress:latest'
+          imagePullPolicy: Never  # Set imagePullPolicy to Never
 ---
 apiVersion: v1
 kind: Service
