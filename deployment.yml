@@ -1,0 +1,57 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: image-compress-app-deployment
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: image-compress
+  template:
+    metadata:
+      labels:
+        app: image-compress
+    spec:
+      containers:
+        - name: image-compress-app
+          image: 'tki/image-compress:latest
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: image-compress-service
+spec:
+  selector:
+    app: image-compress
+  ports:
+    - port: 8080
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: example-ingress
+spec:
+  rules:
+    - http:
+        paths:
+          - pathType: Prefix
+            path: /foo
+            backend:
+              service:
+                name: foo-service
+                port:
+                  number: 8080
+          - pathType: Prefix
+            path: /bar
+            backend:
+              service:
+                name: bar-service
+                port:
+                  number: 8080
+          - pathType: Prefix
+            path: /image-compress
+            backend:
+              service:
+                name: image-compress-service
+                port:
+                  number: 8000
